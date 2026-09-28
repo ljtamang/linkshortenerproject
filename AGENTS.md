@@ -1,9 +1,30 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# Agent Instructions
 
-# This is NOT the Next.js you know
+Instructions for AI coding agents (GitHub Copilot, Claude, etc.) working in this repository. This file is the entry point — read the linked doc for the area you're touching before making changes there.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+## Project Summary
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+A URL shortener built with:
 
-<!-- END:nextjs-agent-rules -->
+- **Next.js 16** (App Router) + **React 19** + **TypeScript** (strict mode)
+- **Clerk** (`@clerk/nextjs`, `@clerk/ui`) for authentication
+- **Drizzle ORM** over **Neon** serverless Postgres for the database
+- **Tailwind CSS v4** + **shadcn/ui** + `@base-ui/react` for UI
+
+## Coding Standards
+
+For detailed guidelines on specific topics, refer to the modular documentation in the '/docs' directory. ALWAYS refer the relevant .md file BEFORE generating any code:
+
+- [docs/authentication.md](docs/authentication.md) — Clerk-only auth, protected routes, home redirect, modal sign-in/up
+
+## Critical Rules (always apply)
+
+- Never commit `.env` or any secret values; reference `process.env.VAR_NAME` by name only.
+- Use the `@/*` path alias for internal imports (e.g. `@/lib/utils`, `@/db`) instead of relative `../../` paths.
+- Default to Server Components; only add `"use client"` when the file needs hooks, event handlers, or browser APIs.
+- Never query the database from Client Components — go through Server Components, Route Handlers, or Server Actions.
+- Add UI primitives via `npx shadcn add <component>` instead of hand-writing `components/ui/*` from scratch.
+- Run `npm run lint` after changes and fix any new errors before considering a task complete.
+- Don't add new dependencies without first checking `package.json` for an existing equivalent (e.g. `cn`, `class-variance-authority`, `lucide-react` are already available).
+- No test framework is configured yet. If a task requires tests, ask before installing one (Vitest is the natural fit for this stack).
+
