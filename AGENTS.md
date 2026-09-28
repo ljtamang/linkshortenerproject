@@ -13,12 +13,14 @@ A URL shortener built with:
 
 ## Coding Standards
 
-For detailed guidelines on specific topics, refer to the modular documentation in the '/docs' directory. ALWAYS refer the relevant .md file BEFORE generating any code:
+For detailed guidelines on specific topics, refer to the modular documentation in the '/docs' directory:
 
 - [docs/authentication.md](docs/authentication.md) — Clerk-only auth, protected routes, home redirect, modal sign-in/up
+- [docs/ui-components.md](docs/ui-components.md) — shadcn/ui only, no hand-written custom components
 
 ## Critical Rules (always apply)
 
+- **IMPORTANT: You MUST read the relevant individual instructions file(s) in `/docs` BEFORE generating any code.** If a task touches authentication or UI components, open and read the matching doc above first — do not rely on memory or skip this step.
 - Never commit `.env` or any secret values; reference `process.env.VAR_NAME` by name only.
 - Use the `@/*` path alias for internal imports (e.g. `@/lib/utils`, `@/db`) instead of relative `../../` paths.
 - Default to Server Components; only add `"use client"` when the file needs hooks, event handlers, or browser APIs.
